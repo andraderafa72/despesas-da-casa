@@ -13,8 +13,23 @@ document.addEventListener('click', e =>{
   }
 
   if(el.classList.contains('delete')){
-    el.parentElement.remove()
-    saveOnLocalStorage()
+
+    const modal = document.querySelector('.modal')
+    const btnClose = document.querySelector('.btn-close')
+    const btnCancel = document.querySelector('.btn-cancel')
+    const btnDeletar = document.querySelector('.deletar')
+    
+    modal.setAttribute('style', 'display:block;')
+    
+    btnClose.addEventListener('click', e => modal.setAttribute('style', 'display:none;'))
+    btnCancel.addEventListener('click', e => modal.setAttribute('style', 'display:none;'))
+    btnDeletar.addEventListener('click', e=>{
+      const li = el.parentElement
+      li.parentElement.remove()
+      modal.setAttribute('style', 'display:none;')
+      saveOnLocalStorage()
+    })
+
   }
 })
 
@@ -36,22 +51,40 @@ function saveOnLocalStorage(){
   }
 
   const despesasJSON = JSON.stringify(listaDeDespesas)
-  localStorage.setItem('tarefas', despesasJSON)
+  localStorage.setItem('bill', despesasJSON)
 }
 
 function createBill(texto){
   const li = createLiElement();
-  const button = createDeleteButton();
+  const btnDelete = createDeleteButton();
+  const btnPago = createPagoButton();
+  const div = document.createElement('div');
+  div.classList.add('options')
+
   li.setAttribute('class', 'liBill')
   li.innerText = texto;
-  li.appendChild(button)
+   
+  div.appendChild(btnPago);
+  div.appendChild(btnDelete);
+
+  li.appendChild(div);
+
   billList.appendChild(li)
   saveOnLocalStorage()
+}
+
+function createPagoButton(){
+  const button = document.createElement('button')
+  button.classList.add('pago');
+  return button
 }
 
 function createDeleteButton(){
   const button = document.createElement('button')
   button.classList.add('delete');
+  button.setAttribute('type', 'button')
+  button.setAttribute('data-bs-toggle', 'modal')
+  button.setAttribute('data-bs-target', 'ModalBox')
   return button
 }
 

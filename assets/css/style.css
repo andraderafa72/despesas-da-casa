@@ -1,3 +1,9 @@
+:root{
+  --pago-color:#A1DF7D;
+  --red-gradient: linear-gradient(to right, #E52D27 0%, #B31217 100%);
+  --green-gradient:linear-gradient(180deg, #27DD9B 0%, #24FE41 100%);
+}
+
 *{
   margin: 0;
   padding: 0;
@@ -6,7 +12,8 @@
 }
 
 body{
-  background: linear-gradient(to right,#5BCC8A, #00B697);}
+  background: var(--red-gradient)
+}
 
 h1, p{
   text-align: center;
@@ -23,7 +30,8 @@ p{
 }
 
 a{
-  padding: 8px 25px;
+  padding: 5px 25px;
+  align-self: flex-end;
   text-decoration: none;
   background-color: #A1DF7D;
   color: black;
@@ -52,7 +60,7 @@ ul:first-child{
 
 li{
   padding: 8px 16px;
-  cursor: pointer!important;
+  cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -63,9 +71,29 @@ li:hover{
   transition: .3s;
 }
 
+.btn-primary{
+  background-color: red;
+  background: var(--red-gradient);
+  border: 1px solid red;
+}
+
+.btn-primary:focus{
+  outline: none!important;
+  border: 1px solid red!important;
+}
+
 input{
-  width: 75%;
+  width: 95%;
   padding: 6px 8px;
+  border: none;
+}
+
+input#valor{
+  max-width: 200px;
+}
+
+input::placeholder{
+  font-size: 0.75rem;
 }
 
 input:focus, .delete:focus{
@@ -85,13 +113,28 @@ input:focus, .delete:focus{
 }
 
 .container{
-  width: 75%;
-  max-width: 600px;
+  max-width: 950px!important;
   margin: 20px auto 0;
-  padding: 20px;
+  padding: 40px!important;
   background-color: #F4F1E3;
   border-radius: 4px;
   box-shadow: 0px 8px 64px 0 rgba(0,0,0,.2)
+}
+
+div.options{
+  margin: 0;
+  display: flex;
+}
+
+.pago{
+  margin-right: 15px;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 100%;
+  color: #1a1a1a;
+  background: var(--green-gradient);
 }
 
 .delete{
@@ -101,11 +144,7 @@ input:focus, .delete:focus{
   border: none;
   border-radius: 100%;
   color: #1a1a1a;
-  background-image: url('../img/delete.svg');
-  background-size: 50%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: #A1DF7D;
+  background-image: var(--red-gradient);
 }
 
 .delete:hover{
