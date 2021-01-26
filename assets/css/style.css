@@ -1,0 +1,114 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body{
+  background: linear-gradient(to right,#5BCC8A, #00B697);}
+
+h1, p{
+  text-align: center;
+}
+
+h1{
+  font-size: 2.4rem;
+  font-weight: 400;
+}
+p{
+  color: #8a8a8a;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+a{
+  padding: 8px 25px;
+  text-decoration: none;
+  background-color: #A1DF7D;
+  color: black;
+  border-radius: 4px;
+}
+
+a:hover{
+  box-shadow: inset 175px 0 0 0 #00B697;
+  transition: .6s;
+}
+
+div{
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+ul{
+  margin-top: 20px;
+  list-style: none;
+}
+
+ul:first-child{
+  border-radius: 10px ;
+}
+
+li{
+  padding: 8px 16px;
+  cursor: pointer!important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li:hover{
+  background-color: #A1DF7D;
+  transition: .3s;
+}
+
+input{
+  width: 75%;
+  padding: 6px 8px;
+}
+
+input:focus, .delete:focus{
+  outline: none;
+}
+
+.done{
+  background-color: #A1DF7D;
+  text-decoration: line-through;
+  opacity: 0.8;
+}
+
+@media(max-width:992px){
+  .container{
+    width:95%!important;
+  }
+}
+
+.container{
+  width: 75%;
+  max-width: 600px;
+  margin: 20px auto 0;
+  padding: 20px;
+  background-color: #F4F1E3;
+  border-radius: 4px;
+  box-shadow: 0px 8px 64px 0 rgba(0,0,0,.2)
+}
+
+.delete{
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 100%;
+  color: #1a1a1a;
+  background-image: url('../img/delete.svg');
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #A1DF7D;
+}
+
+.delete:hover{
+  background-color: #C6F8FF;
+  transition: .3s;
+}
