@@ -68,10 +68,7 @@ table{
 .td-id{
   width: 40%;
 }
-.td-pago{
-  text-decoration: none!important;
-  width: 20%;
-}
+
 
 th{
   border-bottom: 1px solid black;
@@ -87,6 +84,15 @@ td{
   box-sizing: content-box;
 }
 
+.td-vencimento{
+  text-align: center;
+  color: #24FE41;
+  width: 20%;
+}
+
+.vencido{
+  color: red;
+}
 
 td.td-pago {
   text-align: center;
@@ -137,6 +143,12 @@ input:focus,
   background-color: var(--pago-color);
   text-decoration: line-through;
   opacity: 0.8;
+}
+
+.td-pago{
+  text-decoration: none;
+  text-decoration: none!important;
+  width: 20%;
 }
 
 .container{

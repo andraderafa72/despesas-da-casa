@@ -1,5 +1,6 @@
 const billList = document.querySelector('.table-bills')
 const addBill = document.querySelector('.add-bill')
+const dataDeVencimento = document.querySelector('#vencimento')
 const bill = document.querySelector('#bill');
 const billValue = document.querySelector('#valor');
 
@@ -60,13 +61,14 @@ document.addEventListener('click', e =>{
 
 function startApp(){
   const valor = billValue.value.replace(',', '.')
-
+  if(!dataDeVencimento.value)return
   if(!isNumber(valor) || bill.value === '') return alert()
   if(bill.value === '' || bill.value.lenght > 100) return alert()
   
-  createBill(bill.value, valor)
+  createBill(bill.value, valor, false, dataDeVencimento.value)
   bill.value = ''
   billValue.value = ''
+  dataDeVencimento.value = ''
 }
 
 function saveOnLocalStorage(){
@@ -76,11 +78,12 @@ function saveOnLocalStorage(){
   for(let despesa of despesasTr){
     const id = despesa.querySelector('.td-id').innerText
     const valor = despesa.querySelector('.td-valor').innerText
+    const vencimento = despesa.querySelector('.td-vencimento').innerText
     const pago = despesa.querySelector('.td-pago').innerText
     const valorSemMoeda = valor.replace('R$ ', '')
     
-    if(pago === 'Pendente') listaDeDespesas.push({id, valor:valorSemMoeda, pago:false})
-    if(pago === 'Pago') listaDeDespesas.push({id, valor:valorSemMoeda, pago:true})    
+    if(pago === 'Pendente') listaDeDespesas.push({id, valor:valorSemMoeda, vencimento, pago:false})
+    if(pago === 'Pago') listaDeDespesas.push({id, valor:valorSemMoeda, vencimento, pago:true})    
   }
 
   const despesasJSON = JSON.stringify(listaDeDespesas)
@@ -88,28 +91,33 @@ function saveOnLocalStorage(){
 }
 
 // INCREMENTAÇÃO NA TABELA
-function createBill(texto, valor, pago){
+function createBill(texto, valor, pago, data){
   const btnDelete = createDeleteButton();
   const btnPago = createPagoButton();
   const tr = createTrBillElement();
   const tdId = createTdIdElement();
   const tdValor = createTdValorElement();
   const tdPago = createTdPagoElement();
+  const tdVencimento = createTdVencimentoElement();
   const tdButtons = createTdButtonsElement();
   
   tdId.innerText = texto
   tdValor.innerText = `R$ ${valor}`
-  tdPago.innerText = 'Pendente'
+  tdPago.innerText = 'Pendente'; 
   if(pago){
-   tdPago.innerText = 'Pago';
-   tr.classList.add('done')
+    tdPago.innerText = 'Pago';
+    tr.classList.add('done')
   }
+
+  tdVencimento.innerText = data.replace('-', '/');
+  if(estaVencido(data)) tdVencimento.classList.add('vencido')
 
   tdButtons.appendChild(btnPago)
   tdButtons.appendChild(btnDelete)
   
   tr.appendChild(tdId)
   tr.appendChild(tdValor)
+  tr.appendChild(tdVencimento)
   tr.appendChild(tdPago)
   tr.appendChild(tdButtons)
   billList.appendChild(tr)
@@ -118,6 +126,12 @@ function createBill(texto, valor, pago){
   if(localStorage.getItem('bill')) createResultsTableElement()
 }
 
+estaVencido = (data) =>{
+  const dataDividida = data.split('/')
+  const dataD = new Date(dataDividida[2], dataDividida[1], dataDividida[0])
+  if(dataD < new Date) return true
+  return false
+}
 // ELEMENTOS DAS TABELAS
 createResultsTableElement = () => {
   const checkTable = document.querySelector('.results')
@@ -171,6 +185,12 @@ createTdIdElement = e => {
   return td;
 }
 
+createTdVencimentoElement = e => {
+  const td = createTdElement();
+  td.classList.add('td-vencimento');
+  return td;
+
+}
 createTdPagoElement = e => {
   const td = createTdElement();
   td.classList.add('td-pago');
@@ -252,7 +272,7 @@ function getFromLocalStorage(){
   const bills = JSON.parse(billsJSON);
 
   for (let bill of bills) {
-    createBill(bill.id, bill.valor, bill.pago)
+    createBill(bill.id, bill.valor, bill.pago, bill.vencimento)
   }
 }
 
