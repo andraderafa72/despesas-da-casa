@@ -33,7 +33,7 @@ a{
   padding: 5px 25px;
   align-self: flex-end;
   text-decoration: none;
-  background-color: #A1DF7D;
+  background-color: var(--pago-color);
   color: black;
   border-radius: 4px;
 }
@@ -49,26 +49,44 @@ div{
   justify-content: space-between;
 }
 
-ul{
+table{
   margin-top: 20px;
-  list-style: none;
+  width: 100%;
 }
 
-ul:first-child{
-  border-radius: 10px ;
-}
-
-li{
-  padding: 8px 16px;
-  cursor: pointer;
+.td-buttons {
+  text-align: right;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: flex-end;
+}
+.td-valor {
+  text-align: center;
 }
 
-li:hover{
-  background-color: #A1DF7D;
+th{
+  border-bottom: 1px solid black;
+  padding: 10px;
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+td{
+  max-height: 25px!important;
+  padding: 8px 16px;
+  border-top: 1px solid rgba(0, 0, 0,.2);
+  box-sizing: content-box;
+}
+
+
+
+tr.trBill:hover{
+  background-color: rgba(229, 45, 39,.3);
   transition: .3s;
+}
+
+.modal{
+  margin-top: 0;
+  background-color: rgba(0,0,0,.4);
 }
 
 .btn-primary{
@@ -96,12 +114,14 @@ input::placeholder{
   font-size: 0.75rem;
 }
 
-input:focus, .delete:focus{
+input:focus, 
+.delete:focus,
+.pago:focus{
   outline: none;
 }
 
 .done{
-  background-color: #A1DF7D;
+  background-color: var(--pago-color);
   text-decoration: line-through;
   opacity: 0.8;
 }
@@ -114,13 +134,25 @@ input:focus, .delete:focus{
 
 .container{
   max-width: 950px!important;
-  margin: 20px auto 0;
+  margin: 20px auto 20px;
   padding: 40px!important;
   background-color: #F4F1E3;
   border-radius: 4px;
   box-shadow: 0px 8px 64px 0 rgba(0,0,0,.2)
 }
 
+.results{
+  text-align: center;
+}
+
+.results th{
+  color: rgba(0,0,0,.7)
+}
+
+.results td:nth-child(2){
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+}
 div.options{
   margin: 0;
   display: flex;
@@ -129,18 +161,20 @@ div.options{
 .pago{
   margin-right: 15px;
   cursor: pointer;
-  width: 24px;
-  height: 24px;
+  width: 25px;
+  height: 25px;
   border: none;
   border-radius: 100%;
   color: #1a1a1a;
   background: var(--green-gradient);
 }
 
+
+
 .delete{
   cursor: pointer;
-  width: 24px;
-  height: 24px;
+  width: 25px;
+  height: 25px;
   border: none;
   border-radius: 100%;
   color: #1a1a1a;
@@ -150,4 +184,8 @@ div.options{
 .delete:hover{
   background-color: #C6F8FF;
   transition: .3s;
+}
+
+.div-value{
+  margin-top: 0;
 }
