@@ -22,14 +22,19 @@ document.addEventListener('click', e =>{
   if(el.classList.contains('pago')){
     const td = el.parentElement
     const tr = td.parentElement
+    const tdPago = tr.querySelector('.td-pago')
     if(tr.classList.contains('done')){
       tr.classList.remove('done')
+      tdPago.innerText = 'Pendente'
       createResultsTableElement()
+      saveOnLocalStorage()
+
       return
     }
-    tr.classList.add('done')  
+    tr.classList.add('done')
+    if(tdPago.innerText === 'Pendente') tdPago.innerText = 'Pago'
+    saveOnLocalStorage()
     createResultsTableElement()
-
   }
 
   if(el.classList.contains('delete')){
@@ -54,10 +59,12 @@ document.addEventListener('click', e =>{
 })
 
 function startApp(){
-  if(!isNumber(billValue.value) || bill.value === '') return
-  if(bill.value === '' || bill.value.lenght > 100) return
+  const valor = billValue.value.replace(',', '.')
+
+  if(!isNumber(valor) || bill.value === '') return alert()
+  if(bill.value === '' || bill.value.lenght > 100) return alert()
   
-  createBill(bill.value, billValue.value)
+  createBill(bill.value, valor)
   bill.value = ''
   billValue.value = ''
 }
@@ -69,31 +76,41 @@ function saveOnLocalStorage(){
   for(let despesa of despesasTr){
     const id = despesa.querySelector('.td-id').innerText
     const valor = despesa.querySelector('.td-valor').innerText
-
-    const valorSemMoeda = valor.replace('R$', '')
+    const pago = despesa.querySelector('.td-pago').innerText
+    const valorSemMoeda = valor.replace('R$ ', '')
     
-    listaDeDespesas.push({id, valor:valorSemMoeda})
+    if(pago === 'Pendente') listaDeDespesas.push({id, valor:valorSemMoeda, pago:false})
+    if(pago === 'Pago') listaDeDespesas.push({id, valor:valorSemMoeda, pago:true})    
   }
+
   const despesasJSON = JSON.stringify(listaDeDespesas)
   localStorage.setItem('bill', despesasJSON)
 }
 
 // INCREMENTAÇÃO NA TABELA
-function createBill(texto, valor){
+function createBill(texto, valor, pago){
   const btnDelete = createDeleteButton();
   const btnPago = createPagoButton();
   const tr = createTrBillElement();
   const tdId = createTdIdElement();
   const tdValor = createTdValorElement();
+  const tdPago = createTdPagoElement();
   const tdButtons = createTdButtonsElement();
   
   tdId.innerText = texto
-  tdValor.innerText = `R$ ${valor}` 
+  tdValor.innerText = `R$ ${valor}`
+  tdPago.innerText = 'Pendente'
+  if(pago){
+   tdPago.innerText = 'Pago';
+   tr.classList.add('done')
+  }
+
   tdButtons.appendChild(btnPago)
   tdButtons.appendChild(btnDelete)
   
   tr.appendChild(tdId)
   tr.appendChild(tdValor)
+  tr.appendChild(tdPago)
   tr.appendChild(tdButtons)
   billList.appendChild(tr)
 
@@ -154,6 +171,11 @@ createTdIdElement = e => {
   return td;
 }
 
+createTdPagoElement = e => {
+  const td = createTdElement();
+  td.classList.add('td-pago');
+  return td;
+}
 createTdValorElement = e => {
   const td = createTdElement();
   td.classList.add('td-valor');
@@ -230,7 +252,7 @@ function getFromLocalStorage(){
   const bills = JSON.parse(billsJSON);
 
   for (let bill of bills) {
-    createBill(bill.id, bill.valor)
+    createBill(bill.id, bill.valor, bill.pago)
   }
 }
 

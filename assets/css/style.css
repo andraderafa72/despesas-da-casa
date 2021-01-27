@@ -54,6 +54,7 @@ table{
   width: 100%;
 }
 
+
 .td-buttons {
   text-align: right;
   display: flex;
@@ -61,23 +62,35 @@ table{
 }
 .td-valor {
   text-align: center;
+  color: #E52D27;
+  width: 25%;
+}
+.td-id{
+  width: 40%;
+}
+.td-pago{
+  text-decoration: none!important;
+  width: 20%;
 }
 
 th{
   border-bottom: 1px solid black;
-  padding: 10px;
+  padding: 20px;
   font-size: 1.3rem;
   font-weight: 400;
 }
 
 td{
   max-height: 25px!important;
-  padding: 8px 16px;
+  padding: 15px 16px;
   border-top: 1px solid rgba(0, 0, 0,.2);
   box-sizing: content-box;
 }
 
 
+td.td-pago {
+  text-align: center;
+}
 
 tr.trBill:hover{
   background-color: rgba(229, 45, 39,.3);
@@ -124,12 +137,6 @@ input:focus,
   background-color: var(--pago-color);
   text-decoration: line-through;
   opacity: 0.8;
-}
-
-@media(max-width:992px){
-  .container{
-    width:95%!important;
-  }
 }
 
 .container{
@@ -188,4 +195,32 @@ div.options{
 
 .div-value{
   margin-top: 0;
+}
+
+@media(max-width:992px){
+  .container{
+    width:95%!important;
+  }
+}
+@media(max-width:650px){
+  .container{
+    min-width: 630px;
+  }
+}
+@media(max-width:830px){
+  th{
+    font-size: 0.9rem;
+  }
+  td{
+    font-size: .8rem;
+  }
+
+  .pago{
+    width: 15px;
+    height: 15px;
+  }
+  .delete{
+    width: 15px;
+    height: 15px;
+  }
 }
