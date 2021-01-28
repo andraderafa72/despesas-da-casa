@@ -20,13 +20,14 @@ h1, p{
 }
 
 h1{
-  font-size: 2.4rem;
+  font-size: 2.75rem;
   font-weight: 400;
 }
 p{
   color: #8a8a8a;
   font-weight: bold;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
+  line-height: 50%;
 }
 
 a{
@@ -35,11 +36,14 @@ a{
   text-decoration: none;
   background-color: var(--pago-color);
   color: black;
+  border: 2px solid rgba(0, 182, 151, .1);
   border-radius: 4px;
 }
 
 a:hover{
   box-shadow: inset 175px 0 0 0 #00B697;
+  border: 2px solid rgba(0, 182, 151, 1);
+
   transition: .6s;
   color: white;
 }
@@ -71,20 +75,24 @@ table{
 .td-valor {
   color: #E52D27;
   width: 20%;
+  border-right: 1px solid lightgray;
 }
 
 .td-id{
   width: 30%;
+  border-right: 1px solid lightgray;
 }
 
 .td-pago{
   width: 20%;
+  border-right: 1px solid lightgray;
 }
 
 .td-vencimento{
   text-align: center;
   color: #24FE41;
   width: 20%;
+  border-right: 1px solid lightgray;
 }
 
 th{
@@ -120,25 +128,30 @@ tr.trBill:hover{
 }
 
 .btn-primary{
-  background-color: red;
-  background: var(--red-gradient);
+  background-color: rgba(255, 0, 0, .8);
   border: 1px solid red;
 }
 
+.btn-primary:active, 
+.btn-primary:hover, 
 .btn-primary:focus{
   outline: none!important;
+  background-color: rgba(255, 0, 0, 1);
   border: 1px solid red!important;
 }
 
 input{
   width: 95%;
   padding: 6px 8px;
-  border: none;
+  border: 1px solid transparent;
   box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
 }
 
-input#valor{
+input#vencimento{
   max-width: 200px;
+}
+input#valor{
+  max-width: 220px;
 }
 
 input::placeholder{
@@ -149,6 +162,10 @@ input:focus,
 .delete:focus,
 .pago:focus{
   outline: none;
+}
+
+input:focus{
+  border: 1px solid lightblue
 }
 
 .done{
@@ -163,22 +180,44 @@ input:focus,
   padding: 40px!important;
   background-color: #F7F8FC;
   border-radius: 28px;
-  box-shadow: 0px 8px 64px 0 rgba(0,0,0,.2)
+  box-shadow: 0px 8px 64px 0 rgba(0,0,0,.4)
 }
 
 .results{
   text-align: center;
   box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
   border-radius: 28px;
+  font-weight: bold;
+}
+
+.results th:first-child{
+  color: rgba(0, 160, 255, .8);
+  font-weight: 600;
+}
+.results th:nth-child(2){
+  color: rgba(36, 254, 65, .8);
+  font-weight: 600;
+}
+.results th:last-child{
+  color: rgb(255, 0, 0, .8);
+  font-weight: 600;
 }
 
 .results th{
   color: rgba(0,0,0,.7)
 }
 
+.results td:first-child{
+  color: rgba(0, 160, 255, 1)
+}
+.results td:last-child{
+  color: red
+}
+
 .results td:nth-child(2){
   border-left: 1px solid lightgray;
   border-right: 1px solid lightgray;
+  color: rgba(36, 254, 65,1);
 }
 
 .results td{
@@ -200,8 +239,6 @@ div.options{
   background: var(--green-gradient);
 }
 
-
-
 .delete{
   cursor: pointer;
   width: 25px;
@@ -221,6 +258,11 @@ div.options{
   margin-top: 0;
 }
 
+.modal-body p{
+  font-size: 0.9rem;
+}
+
+
 @media(max-width:992px){
   .container{
     width:95%!important;
@@ -228,7 +270,15 @@ div.options{
 }
 @media(max-width:650px){
   .container{
+    margin-left: 10px;
+    margin-right: 10px;
     min-width: 630px;
+  }
+  label, input{
+    font-size: 0.8rem;
+  }
+  body{
+    background-size: 200%;
   }
 }
 @media(max-width:830px){
