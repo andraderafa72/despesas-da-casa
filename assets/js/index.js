@@ -55,7 +55,6 @@ document.addEventListener('click', e =>{
       modal.setAttribute('style', 'display:none;')
       saveOnLocalStorage()
     })
-
   }
 })
 
@@ -82,12 +81,14 @@ function saveOnLocalStorage(){
     const pago = despesa.querySelector('.td-pago').innerText
     const valorSemMoeda = valor.replace('R$ ', '')
     
-    if(pago === 'Pendente') listaDeDespesas.push({id, valor:valorSemMoeda, vencimento, pago:false})
-    if(pago === 'Pago') listaDeDespesas.push({id, valor:valorSemMoeda, vencimento, pago:true})    
+    if(pago === 'Pendente') listaDeDespesas.push({id, valor:valorSemMoeda, vencimento:unfortmatData(vencimento), pago:false})
+    if(pago === 'Pago') listaDeDespesas.push({id, valor:valorSemMoeda, vencimento:unfortmatData(vencimento), pago:true})    
   }
 
   const despesasJSON = JSON.stringify(listaDeDespesas)
   localStorage.setItem('bill', despesasJSON)
+  createResultsTableElement()
+
 }
 
 // INCREMENTAÇÃO NA TABELA
@@ -108,9 +109,9 @@ function createBill(texto, valor, pago, data){
     tdPago.innerText = 'Pago';
     tr.classList.add('done')
   }
-
-  tdVencimento.innerText = data.replace('-', '/');
+  // data = formatData(data)
   if(estaVencido(data)) tdVencimento.classList.add('vencido')
+  tdVencimento.innerText = fortmatData(data);
 
   tdButtons.appendChild(btnPago)
   tdButtons.appendChild(btnDelete)
@@ -126,8 +127,18 @@ function createBill(texto, valor, pago, data){
   if(localStorage.getItem('bill')) createResultsTableElement()
 }
 
+fortmatData = (data) => {
+  const dataV = data.split('-')
+  return `${dataV[2]}/${dataV[1]}/${dataV[0]}`
+}
+
+unfortmatData = (data) => {
+  const dataV = data.split('/')
+  return `${dataV[2]}-${dataV[1]}-${dataV[0]}`
+}
+
 estaVencido = (data) =>{
-  const dataDividida = data.split('/')
+  const dataDividida = data.split('-')
   const dataD = new Date(dataDividida[2], dataDividida[1], dataDividida[0])
   if(dataD < new Date) return true
   return false
@@ -272,6 +283,7 @@ function getFromLocalStorage(){
   const bills = JSON.parse(billsJSON);
 
   for (let bill of bills) {
+    
     createBill(bill.id, bill.valor, bill.pago, bill.vencimento)
   }
 }

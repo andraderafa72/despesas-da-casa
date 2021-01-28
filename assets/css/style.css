@@ -41,6 +41,7 @@ a{
 a:hover{
   box-shadow: inset 175px 0 0 0 #00B697;
   transition: .6s;
+  color: white;
 }
 
 div{
@@ -49,39 +50,35 @@ div{
   justify-content: space-between;
 }
 
+.tabela{
+  padding: 0 10px 15px;
+  border-radius: 28px;
+  background-color: #F7F8FC;
+  box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+}
+
 table{
   margin-top: 20px;
   width: 100%;
 }
-
 
 .td-buttons {
   text-align: right;
   display: flex;
   justify-content: flex-end;
 }
+
 .td-valor {
-  text-align: center;
   color: #E52D27;
-  width: 25%;
+  width: 20%;
 }
+
 .td-id{
-  width: 40%;
+  width: 30%;
 }
 
-
-th{
-  border-bottom: 1px solid black;
-  padding: 20px;
-  font-size: 1.3rem;
-  font-weight: 400;
-}
-
-td{
-  max-height: 25px!important;
-  padding: 15px 16px;
-  border-top: 1px solid rgba(0, 0, 0,.2);
-  box-sizing: content-box;
+.td-pago{
+  width: 20%;
 }
 
 .td-vencimento{
@@ -90,12 +87,26 @@ td{
   width: 20%;
 }
 
-.vencido{
-  color: red;
+th{
+  text-align: center;
+  border-bottom: 2px solid #182235;
+  padding: 5px;
+  font-size: 1.3rem;
+  font-weight: 400;
 }
 
-td.td-pago {
+td{
+  max-height: 25px!important;
   text-align: center;
+  padding: 15px 16px;
+  border-top: 1px solid rgba(0, 0, 0,.2);
+  box-sizing: content-box;
+}
+
+
+.vencido{
+  color: red;
+  font-weight: 500;
 }
 
 tr.trBill:hover{
@@ -123,6 +134,7 @@ input{
   width: 95%;
   padding: 6px 8px;
   border: none;
+  box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
 }
 
 input#valor{
@@ -145,23 +157,19 @@ input:focus,
   opacity: 0.8;
 }
 
-.td-pago{
-  text-decoration: none;
-  text-decoration: none!important;
-  width: 20%;
-}
-
 .container{
   max-width: 950px!important;
   margin: 20px auto 20px;
   padding: 40px!important;
-  background-color: #F4F1E3;
-  border-radius: 4px;
+  background-color: #F7F8FC;
+  border-radius: 28px;
   box-shadow: 0px 8px 64px 0 rgba(0,0,0,.2)
 }
 
 .results{
   text-align: center;
+  box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+  border-radius: 28px;
 }
 
 .results th{
@@ -171,6 +179,10 @@ input:focus,
 .results td:nth-child(2){
   border-left: 1px solid lightgray;
   border-right: 1px solid lightgray;
+}
+
+.results td{
+  width: 33.3333%;
 }
 div.options{
   margin: 0;
