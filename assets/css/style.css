@@ -148,14 +148,19 @@ input{
 }
 
 input#vencimento{
+  margin-left: 10px;
   max-width: 200px;
 }
 input#valor{
-  max-width: 220px;
+  min-width: 100px;
 }
 
 input::placeholder{
   font-size: 0.75rem;
+}
+
+input#bill{
+  min-width: 150px;
 }
 
 input:focus, 
